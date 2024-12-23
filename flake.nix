@@ -4,12 +4,17 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nuget-packageslock2nix = {
+      url = "github:mdarocha/nuget-packageslock2nix/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    nuget-packageslock2nix,
   } @ inputs:
     flake-utils.lib.eachDefaultSystem
     (
