@@ -49,6 +49,13 @@
           doCheck = true;
         };
 
+        packages.image = pkgs.dockerTools.buildImage {
+          name = nixpkgs.lib.strings.concatStrings [pname "_image"];
+
+          config = {
+            Cmd = ["${pkgs.hello}/bin/hello"];
+          };
+        };
 
         devShell = pkgs.mkShell {
           buildInputs = [
