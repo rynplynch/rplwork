@@ -38,8 +38,14 @@
         packages.default = packages.rplwork;
 
         packages.rplwork = pkgs.buildDotnetModule {
-          nugetDeps = ./deps.nix; #`nix build .#default.passthru.fetch-deps && ./result` and put the result here
           inherit pname src projectFile dotnet-sdk dotnet-runtime version;
+          nugetDeps = nuget-packageslock2nix.lib {
+            inherit system;
+            name = pname;
+            lockfiles = [
+              ./src/packages.lock.json
+            ];
+          };
           doCheck = true;
         };
 
