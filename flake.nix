@@ -32,8 +32,10 @@
         dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_8_0;
       in rec {
         apps.default = flake-utils.lib.mkApp {
-          drv = self.packages.${system}.default;
+          drv = packages.default;
         };
+
+        packages.default = packages.rplwork;
 
         packages.rplwork = pkgs.buildDotnetModule {
           nugetDeps = ./deps.nix; #`nix build .#default.passthru.fetch-deps && ./result` and put the result here
@@ -41,7 +43,6 @@
           doCheck = true;
         };
 
-        packages.default = self.packages.${system}.rplwork;
 
         devShell = pkgs.mkShell {
           buildInputs = [
