@@ -21,13 +21,6 @@
       # different systems that rplwork can be built for
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
 
-        pname = "rplwork_client";
-        version = "0.0.1";
-        projectFile = "rplwork_client.csproj";
-        src = ./src;
-
-        dotnet-sdk = pkgs.dotnetCorePackages.sdk_8_0_1xx;
-        dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_8_0;
       # helper function that handles ${system} for us
       perSystem = {
         # used to reference nixpkgs, called because we inherited inputs
@@ -39,20 +32,11 @@
 
         packages.default = packages.rplwork;
 
-        packages.rplwork = pkgs.buildDotnetModule {
-          inherit pname src projectFile dotnet-sdk dotnet-runtime version;
-          nugetDeps = nuget-packageslock2nix.lib {
-            inherit system;
-            name = pname;
-            lockfiles = [
-              ./src/packages.lock.json
-            ];
-          };
-          doCheck = true;
-        };
-
         packages.image = pkgs.dockerTools.buildImage {
           name = nixpkgs.lib.strings.concatStrings [pname "_image"];
+        # call the rplwork_client nix module and expose it via the packages.rplwork attribute
+        # this is what is referenced with self'.packages.rplwork_client
+        packages.rplwork_client = pkgs.callPackage ./pkgs/rplwork_client.nix {inherit inputs;};
 
           config = {
             Cmd = ["${pkgs.hello}/bin/hello"];
