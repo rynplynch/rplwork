@@ -15,18 +15,9 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-    nuget-packageslock2nix,
-  } @ inputs:
-    flake-utils.lib.eachDefaultSystem
-    (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
+  outputs = inputs @ {flake-parts, ...}:
+  # generate the flake, while passing input attributes
+    flake-parts.lib.mkFlake {inherit inputs;} {
 
         pname = "rplwork_client";
         version = "0.0.1";
@@ -35,9 +26,6 @@
 
         dotnet-sdk = pkgs.dotnetCorePackages.sdk_8_0_1xx;
         dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_8_0;
-      in rec {
-        apps.default = flake-utils.lib.mkApp {
-          drv = packages.default;
         };
 
         packages.default = packages.rplwork;
