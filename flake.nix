@@ -2,8 +2,9 @@
   description = "Dotnet website for rplwork.com. Showcase for Ryan Lynch's work.";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    # helpful tools for maintaining the flake
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     nuget-packageslock2nix = {
       url = "github:mdarocha/nuget-packageslock2nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
