@@ -44,17 +44,19 @@
         packages.rplwork_client = pkgs.callPackage ./pkgs/rplwork_client.nix {inherit inputs;};
 
 
-        devShell = pkgs.mkShell {
+        # development environment used to work on dotnet source code
+        # enter using 'nix develop'
+        devShells.default = pkgs.mkShell {
           buildInputs = [
-            (with pkgs.dotnetCorePackages;
-              combinePackages [
-                dotnet-sdk
-                dotnet-runtime
-              ])
+            (
+              with pkgs.dotnetCorePackages;
+                combinePackages [
+                  pkgs.dotnetCorePackages.sdk_8_0_1xx
+                  pkgs.dotnetCorePackages.aspnetcore_8_0
+                ]
+            )
           ];
         };
-      }
-    );
 
         # builds a docker image of rplwork_client!
         # use 'docker load < result' to give docker access to the image
