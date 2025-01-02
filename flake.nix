@@ -5,6 +5,10 @@
     # helpful tools for maintaining the flake
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    # use nix flake update to bump the version of nixpkgs used
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # helpful tool to manage dotnet nuget dependencies
     nuget-packageslock2nix = {
       url = "github:mdarocha/nuget-packageslock2nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
