@@ -30,7 +30,8 @@
       }: {
         };
 
-        packages.default = packages.rplwork;
+        # assign default package to build with 'nix build .'
+        packages.default = self'.packages.rplwork_client;
 
         packages.image = pkgs.dockerTools.buildImage {
           name = nixpkgs.lib.strings.concatStrings [pname "_image"];
