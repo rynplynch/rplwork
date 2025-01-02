@@ -39,16 +39,10 @@
         # assign default package to build with 'nix build .'
         packages.default = self'.packages.rplwork_client;
 
-        packages.image = pkgs.dockerTools.buildImage {
-          name = nixpkgs.lib.strings.concatStrings [pname "_image"];
         # call the rplwork_client nix module and expose it via the packages.rplwork attribute
         # this is what is referenced with self'.packages.rplwork_client
         packages.rplwork_client = pkgs.callPackage ./pkgs/rplwork_client.nix {inherit inputs;};
 
-          config = {
-            Cmd = ["${pkgs.hello}/bin/hello"];
-          };
-        };
 
         devShell = pkgs.mkShell {
           buildInputs = [
@@ -61,5 +55,11 @@
         };
       }
     );
+
+        # builds a docker image of rplwork_client!
+        # use 'docker load < result' to give docker access to the image
+        packages.image = pkgs.callPackage ./pkgs/rplwork_client_image.nix {
+          rplwork_client = self'.packages.rplwork_client;
+        };
     };
 }
