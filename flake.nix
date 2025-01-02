@@ -28,6 +28,12 @@
         self',
         ...
       }: {
+        # assign the default package to run with 'nix run .'
+        apps.default = {
+          type = "app";
+          # self' = self prime
+          # self' allows us to reference the future derivation that is created with this flake
+          program = self'.packages.rplwork_client;
         };
 
         # assign default package to build with 'nix build .'
