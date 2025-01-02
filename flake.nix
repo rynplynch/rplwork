@@ -43,6 +43,8 @@
         # this is what is referenced with self'.packages.rplwork_client
         packages.rplwork_client = pkgs.callPackage ./pkgs/rplwork_client.nix {inherit inputs;};
 
+        # use 'nix fmt' before committing changes in git
+        formatter = pkgs.alejandra;
 
         # development environment used to work on dotnet source code
         # enter using 'nix develop'
