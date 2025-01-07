@@ -65,5 +65,6 @@
         packages.image = pkgs.callPackage ./pkgs/rplwork_client_image.nix {
           rplwork_client = self'.packages.rplwork_client;
         };
+      };
     };
 }
