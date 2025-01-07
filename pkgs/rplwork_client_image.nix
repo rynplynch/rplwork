@@ -2,24 +2,28 @@
   rplwork_client,
   dockerTools,
   lib,
-  fakeNss,
+  buildEnv,
+  runtimeShell,
 }: let
-  image = dockerTools.buildLayeredImage {
+  image = dockerTools.buildImage {
     name = lib.strings.concatStrings [rplwork_client.pname "_" rplwork_client.version];
-
     tag = "latest";
-    contents = [
-      fakeNss
-    ];
-    #"${rplwork_client.port}/tcp" = { };
+    copyToRoot = buildEnv {
+      name = "image-root";
+      paths = [rplwork_client];
+      pathsToLink = ["/bin"];
+    };
+    runAsRoot = ''
+      #!${runtimeShell}
+      mkdir -p /tmp
+    '';
+
     config = {
-      Cmd = ["${rplwork_client}/bin/${rplwork_client.pname}"];
-      extraCommands = ''
-        mkdir -p /tmp/
-      '';
-      #ExposedPorts = {
-      #        "5001" = { };
-      #};
+      Cmd = ["/bin/rplwork_client"];
+
+      ExposedPorts = {
+        "5000" = {};
+      };
     };
   };
 in
