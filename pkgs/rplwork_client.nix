@@ -28,7 +28,7 @@
     meta.mainProgram = pname;
     makeWrapperArgs = [
       "--set DOTNET_CONTENTROOT ${placeholder "out"}/lib/${pname}"
-      #"--set ASPNETCORE_URLS http://localhost:${port}/"
+      "--set ASPNETCORE_URLS http://+:${port}/"
     ];
   };
 in
