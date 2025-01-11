@@ -24,7 +24,7 @@
       Cmd = [rplwork_client.pname];
 
       ExposedPorts = {
-        "5000" = {};
+        "${rplwork_client.port}/tcp" = {};
       };
     };
   };
