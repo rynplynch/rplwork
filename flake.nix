@@ -33,15 +33,15 @@
           type = "app";
           # self' = self prime
           # self' allows us to reference the future derivation that is created with this flake
-          program = self'.packages.rplwork_client;
+          program = self'.packages.rplwork-client;
         };
 
         # assign default package to build with 'nix build .'
-        packages.default = self'.packages.rplwork_client;
+        packages.default = self'.packages.rplwork-client;
 
-        # call the rplwork_client nix module and expose it via the packages.rplwork attribute
-        # this is what is referenced with self'.packages.rplwork_client
-        packages.rplwork_client = pkgs.callPackage ./pkgs/rplwork_client.nix {inherit inputs;};
+        # call the rplwork-client nix module and expose it via the packages.rplwork attribute
+        # this is what is referenced with self'.packages.rplwork-client
+        packages.rplwork-client = pkgs.callPackage ./pkgs/rplwork-client.nix {inherit inputs;};
 
         # use 'nix fmt' before committing changes in git
         formatter = pkgs.alejandra;
@@ -60,10 +60,10 @@
           ];
         };
 
-        # builds a docker image of rplwork_client!
+        # builds a docker image of rplwork-client!
         # use 'docker load < result' to give docker access to the image
-        packages.image = pkgs.callPackage ./pkgs/rplwork_client_image.nix {
-          rplwork_client = self'.packages.rplwork_client;
+        packages.image = pkgs.callPackage ./pkgs/rplwork-client-image.nix {
+          rplwork-client = self'.packages.rplwork-client;
         };
       };
     };
