@@ -4,16 +4,21 @@
   system,
   inputs,
 }: let
-  pname = "rplwork_client";
+  # started configuration attributes for dotnet projects
+  pname = "rplwork-client";
   version = "1.0.0";
-  projectFile = "rplwork_client.csproj";
+  projectFile = "rplwork-client.csproj";
   src = ../src;
   port = "5000";
 
+  # controls what sdk the project is built with and what runtime it is run in
   dotnet-sdk = dotnetCorePackages.sdk_8_0_1xx;
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
 
+  # helpful tool that will handle nuget dependencies
   nuget-packageslock2nix = inputs.nuget-packageslock2nix;
+
+  # create derivation that represents the packaged web application
   rplwork = buildDotnetModule {
     inherit pname src projectFile dotnet-sdk dotnet-runtime version port;
 
@@ -24,8 +29,14 @@
         ../src/packages.lock.json
       ];
     };
+
+    # not sure what this does
     doCheck = true;
+
+    # tell the flake the name of the executable so it can find it
     meta.mainProgram = pname;
+
+    # environment variables set at runtime
     makeWrapperArgs = [
       "--set DOTNET_CONTENTROOT ${placeholder "out"}/lib/${pname}"
       "--set ASPNETCORE_URLS http://+:${port}/"
