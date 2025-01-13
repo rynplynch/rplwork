@@ -1,17 +1,17 @@
 {
-  rplwork_client,
+  rplwork-client,
   dockerTools,
   lib,
   buildEnv,
   runtimeShell,
 }: let
   image = dockerTools.buildImage {
-    name = lib.strings.concatStrings [rplwork_client.pname "_" rplwork_client.version];
-    tag = "latest";
+    name = lib.strings.concatStrings ["rynplynch/" rplwork-client.pname];
+    tag = rplwork-client.version;
 
     copyToRoot = buildEnv {
       name = "image-root";
-      paths = [rplwork_client];
+      paths = [rplwork-client];
       pathsToLink = ["/bin"];
     };
 
@@ -21,10 +21,10 @@
     '';
 
     config = {
-      Cmd = [rplwork_client.pname];
+      Cmd = [rplwork-client.pname];
 
       ExposedPorts = {
-        "${rplwork_client.port}/tcp" = {};
+        "${rplwork-client.port}/tcp" = {};
       };
     };
   };
