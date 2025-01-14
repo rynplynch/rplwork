@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using rplwork_client.Models;
+using rplwork_client.ViewModels;
 
 namespace rplwork_client.Controllers;
 
