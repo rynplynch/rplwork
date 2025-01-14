@@ -26,7 +26,7 @@
       inherit system;
       name = pname;
       lockfiles = [
-        ../src/packages.lock.json
+        (src + "/packages.lock.json")
       ];
     };
 
