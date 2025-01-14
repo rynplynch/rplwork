@@ -49,6 +49,14 @@
         # development environment used to work on dotnet source code
         # enter using 'nix develop'
         devShells.default = pkgs.mkShell {
+          shellHook = ''
+            # append global dotnet tools to PATH
+            export PATH="$PATH:$HOME/.dotnet/tools"
+
+            # global tools use this environment variable to locate dotnet runtime
+            export DOTNET_ROOT=${pkgs.dotnetCorePackages.sdk_8_0_1xx}/share/dotnet/
+          '';
+
           buildInputs = [
             (
               with pkgs.dotnetCorePackages;
