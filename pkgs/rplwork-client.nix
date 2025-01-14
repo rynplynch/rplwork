@@ -5,10 +5,10 @@
   inputs,
 }: let
   # started configuration attributes for dotnet projects
-  pname = "rplwork-client";
+  pname = "rplwork_client";
   version = "1.0.0";
-  projectFile = "rplwork-client.csproj";
-  src = ../src;
+  projectFile = "rplwork_client.csproj";
+  src = ../rplwork_client;
   port = "5000";
 
   # controls what sdk the project is built with and what runtime it is run in
