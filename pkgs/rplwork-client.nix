@@ -6,7 +6,7 @@
 }: let
   # started configuration attributes for dotnet projects
   pname = "rplwork_client";
-  version = "1.0.2";
+  version = "1.0.3";
   projectFile = "rplwork_client.csproj";
   src = ../rplwork_client;
   port = "5000";
