@@ -7,11 +7,14 @@ namespace rplwork_client.ViewComponents
     public class ProjectViewComponent : ViewComponent
     {
         private readonly ILogger<ProjectViewComponent> _logger;
+        private readonly IWebHostEnvironment _env;
         public ProjectViewComponent(
-                ILogger<ProjectViewComponent> logger
+                ILogger<ProjectViewComponent> logger,
+IWebHostEnvironment env
                 )
         {
             _logger = logger;
+            _env = env;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
