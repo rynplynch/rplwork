@@ -44,7 +44,7 @@ IWebHostEnvironment env
             try
             {
                 // read in json from file existing on web server
-                string json = await File.ReadAllTextAsync("./SiteData/projects.json");
+                string json = await File.ReadAllTextAsync(_env.ContentRootPath + "/SiteData/projects.json");
 
                 // parse that json using the ProjectViewModel as a guide
                 List<ProjectViewModel>? projectList = JsonSerializer.Deserialize<List<ProjectViewModel>>(json);
