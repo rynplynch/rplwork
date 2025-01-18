@@ -12,6 +12,9 @@ public class ProjectViewModel
     [Required(ErrorMessage = "This field can not be empty.")]
     public required string Description { get; set; }
 
-    public string? Domain { get; set; }
+    [Required(ErrorMessage = "This field can not be empty.")]
+    public required List<Uri> Repositories { get; set; }
+
+    public Uri? Domain { get; set; }
 }
 
