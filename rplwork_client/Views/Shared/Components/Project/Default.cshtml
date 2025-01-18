@@ -1,4 +1,6 @@
 @model IEnumerable<rplwork_client.ViewModels.ProjectViewModel>
-@foreach (var item in Model) {
-    @await Html.PartialAsync("Project/_Details", item)
-}
+    <div class="row g-3">
+        @foreach (var item in Model) {
+        @await Html.PartialAsync("Project/_Details", item)
+        }
+    </div>
