@@ -1,31 +1,35 @@
 @model rplwork_client.ViewModels.ProjectViewModel
+@{
+ProjectViewModel p = Model;
+}
+<div class="col-sm">
+    <div class="card h-100 border-dark">
+        <h4 class="card-header">@(p.Title)</h4>
+        <div class="card-body" >
+            <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            @if (p.Domain is not null)
+            {
+            <li class="list-group-item">
+                <h5>Visit the live site</h5>
+                <a href=@(p.Domain) class="btn btn-success btn-sm">@(p.Domain.Host)</a>
+            </li>
+            }
+            @if (p.Repositories is not null)
+            {
+            <li class="list-group-item">
+                <h5 >View the source code</h5>
+                <div class="btn-group-vertical">
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrimaryKey)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrimaryKey)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Domain)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Domain)
-        </dd>
-    </dl>
+                    @foreach (var r in p.Repositories)
+                    {
+                    <a href=@(r) class="btn p-2 btn-primary btn-sm">@(r.Segments[2])</a>
+                    }
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
 </div>
+
