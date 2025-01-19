@@ -1,10 +1,40 @@
 [
   {
-    "Description": "THIS IS MY AMAZING PROJECT HIRE ME",
-    "Title": "Portfolio site"
+    "Title": "RPLWork",
+    "Description": "My portfolio site. The site that you're on right now! Web server made using the dotnet framework. Packaged and distributed using nix flakes.",
+    "Repositories": [
+      "https://github.com/rynplynch/rplwork"
+    ],
+    "Domain": "https://www.rplwork.com/"
   },
   {
-    "Description": "THIS IS MY AMAZING PROJECT HIRE ME",
-    "Title": "WOWOWWOWO"
+    "Title": "SpheresOfFun",
+    "Description": "A Godot project. Godot is an open source game engine. Used this project to learn nix and its experimental flake feature. Game development presents unique challenges; asset management and package distribution to multiple platforms. Nix is well suited to help solve these problems.",
+    "Repositories": [
+      "https://github.com/rynplynch/Spheres-of-Fun"
+    ]
+  },
+  {
+    "Title": "SocialNexus",
+    "Description": "Implements a SaaS example using Azure AD B2C. Secure distribution using the OAuth 2.0 standard. Completed for my Capstone project at UW Bothell.",
+    "Repositories": [
+      "https://github.com/rynplynch/SocialNexusClient",
+      "https://github.com/rynplynch/SocialNexusService"
+    ],
+    "Domain": "https://www.social-nexus.net/"
+  },
+  {
+    "Title": "ARM Cortex-M, Sys_Alarm and Sys_Malloc",
+    "Description": "Wrote Assembly code to implement core functionality for an emulated Arm Cortex-M processor. Worked as a team to delegate work and accomplish challenging goals.",
+    "Repositories": [
+      "https://github.com/rynplynch/CSS422_FinalProject"
+    ]
+  },
+  {
+    "Title": "Unity Engine, Technical Demo",
+    "Description": "A walk through on using Unity's Input System. Complete at UW Bothell for CSS385, game development. Show cases my ability to create documentation using README.md files",
+    "Repositories": [
+      "https://github.com/rynplynch/CSS385_TechnicalDemo"
+    ]
   }
 ]

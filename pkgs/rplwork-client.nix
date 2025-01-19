@@ -12,8 +12,8 @@
   port = "5000";
 
   # controls what sdk the project is built with and what runtime it is run in
-  dotnet-sdk = dotnetCorePackages.sdk_8_0_1xx;
-  dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
+  dotnet-sdk = dotnetCorePackages.dotnet_9.sdk;
+  dotnet-runtime = dotnetCorePackages.dotnet_9.aspnetcore;
 
   # helpful tool that will handle nuget dependencies
   nuget-packageslock2nix = inputs.nuget-packageslock2nix;

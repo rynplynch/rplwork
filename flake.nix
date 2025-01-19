@@ -61,8 +61,8 @@
             (
               with pkgs.dotnetCorePackages;
                 combinePackages [
-                  pkgs.dotnetCorePackages.sdk_8_0_1xx
-                  pkgs.dotnetCorePackages.aspnetcore_8_0
+                  pkgs.dotnetCorePackages.dotnet_9.sdk
+                  pkgs.dotnetCorePackages.dotnet_9.aspnetcore
                 ]
             )
           ];
