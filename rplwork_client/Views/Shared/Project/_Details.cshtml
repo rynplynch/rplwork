@@ -3,7 +3,7 @@
 ProjectViewModel p = Model;
 }
 <div class="col-sm">
-    <div class="card h-100 border-dark">
+    <div class="card h-100 border-dark text-dark bg-light">
         <h4 class="card-header">@(p.Title)</h4>
         <div class="card-body" >
             <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
@@ -11,14 +11,14 @@ ProjectViewModel p = Model;
         <ul class="list-group list-group-flush">
             @if (p.Domain is not null)
             {
-            <li class="list-group-item">
+            <li class="list-group-item bg-light">
                 <h5>Visit the live site</h5>
                 <a href=@(p.Domain) class="btn btn-success btn-sm">@(p.Domain.Host)</a>
             </li>
             }
             @if (p.Repositories is not null)
             {
-            <li class="list-group-item">
+            <li class="list-group-item bg-light">
                 <h5 >View the source code</h5>
                 <div class="btn-group-vertical">
 
