@@ -5,15 +5,15 @@
 }:
 with nixpkgs;
 let
-  ryanl-editor = inputs.ryanl-editor.packages.${system}.default;
-  inherit (ryanl-editor) utils;
+  ryanl-nvim = inputs.ryanl-nvim.packages.${system}.default;
+  inherit (ryanl-nvim) utils;
   customNixCats = (
-    ryanl-editor.override (prev: {
-      name = "neodev";
+    ryanl-nvim.override (prev: {
+      name = "ryanl-nvim";
 
       packageDefinitions = prev.packageDefinitions // {
         # the name here is what will show up in CLI
-        neodev = utils.mergeCatDefs prev.packageDefinitions.nvim (
+        ryanl-nvim = utils.mergeCatDefs prev.packageDefinitions.nvim (
           { pkgs, ... }:
           {
             categories = {
