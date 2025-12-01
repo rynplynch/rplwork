@@ -1,14 +1,14 @@
-{
-  dotnetCorePackages,
-  buildDotnetModule,
-  system,
-  inputs,
-}: let
+{ nixpkgs
+, system
+, inputs
+,
+}:
+with nixpkgs; let
   # started configuration attributes for dotnet projects
   pname = "rplwork_client";
   version = "1.1.0";
   projectFile = "rplwork_client.csproj";
-  src = ../rplwork_client;
+  src = ./rplwork_client;
   port = "5000";
 
   # controls what sdk the project is built with and what runtime it is run in
@@ -43,4 +43,4 @@
     ];
   };
 in
-  rplwork
+rplwork

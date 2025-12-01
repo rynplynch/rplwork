@@ -1,18 +1,15 @@
-{
-  rplwork-client,
-  dockerTools,
-  lib,
-  buildEnv,
-  runtimeShell,
-}: let
+{ rplwork-client
+, nixpkgs
+,
+}: with nixpkgs; let
   image = dockerTools.buildImage {
-    name = lib.strings.concatStrings ["rynplynch/" rplwork-client.pname];
+    name = lib.strings.concatStrings [ "rynplynch/" rplwork-client.pname ];
     tag = rplwork-client.version;
 
     copyToRoot = buildEnv {
       name = "image-root";
-      paths = [rplwork-client];
-      pathsToLink = ["/bin"];
+      paths = [ rplwork-client ];
+      pathsToLink = [ "/bin" ];
     };
 
     runAsRoot = ''
@@ -21,12 +18,12 @@
     '';
 
     config = {
-      Cmd = [rplwork-client.pname];
+      Cmd = [ rplwork-client.pname ];
 
       ExposedPorts = {
-        "${rplwork-client.port}/tcp" = {};
+        "${rplwork-client.port}/tcp" = { };
       };
     };
   };
 in
-  image
+image
