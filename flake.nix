@@ -2,9 +2,6 @@
   description = "Dotnet website for rplwork.com. Showcase for Ryan Lynch's work.";
 
   inputs = {
-    # helpful tools for maintaining the flake
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     # use nix flake update to bump the version of nixpkgs used
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
