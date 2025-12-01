@@ -10,6 +10,12 @@
       url = "github:mdarocha/nuget-packageslock2nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # ryan's prefered editor config
+    ryanl-nvim = {
+      url = "github:rynplynch/my-nixCats";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
