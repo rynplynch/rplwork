@@ -34,6 +34,11 @@
 
       port = "5000";
 
+      # define which sdk/runtime used by the application
+      # each represents an attribute path in nixpkgs
+      dotnet-sdk = [ "dotnetCorePackages" "dotnet_9" "sdk" ];
+      dotnet-runtime = [ "dotnetCorePackages" "dotnet_9" "aspnetcore" ];
+
       # System types to support.
       supportedSystems = [
         "x86_64-linux"
@@ -41,11 +46,6 @@
         "aarch64-linux"
         "aarch64-darwin"
       ];
-
-      # define which sdk/runtime used by the application
-      # each represents an attribute path in nixpkgs
-      dotnet-sdk = [ "dotnetCorePackages" "dotnet_9" "sdk" ];
-      dotnet-runtime = [ "dotnetCorePackages" "dotnet_9" "aspnetcore" ];
 
       # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
