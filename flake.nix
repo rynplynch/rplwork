@@ -84,7 +84,7 @@
             };
             default = self.packages.${system}.rplwork-client;
             rplwork-image = import ./pkgs/rplwork-client-image.nix {
-              nixpkgs = pkgs;
+              inherit (pkgs) dockerTools buildEnv runtimeShell lib;
               rplwork-client = self.packages.${system}.default;
             };
           }

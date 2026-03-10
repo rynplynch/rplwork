@@ -1,7 +1,10 @@
 { rplwork-client
-, nixpkgs
-,
-}: with nixpkgs; let
+, dockerTools
+, buildEnv
+, runtimeShell
+, lib
+}:
+let
   image = dockerTools.buildImage {
     name = lib.strings.concatStrings [ "rynplynch/" rplwork-client.pname ];
     tag = rplwork-client.version;
