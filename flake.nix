@@ -39,6 +39,7 @@
         "aarch64-darwin"
       ];
 
+      dotnet-sdk = [ "dotnetCorePackages" "sdk_9_0_1xx" ];
       # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
@@ -75,12 +76,19 @@
         }
       );
 
-      devShells = forAllSystems (system: {
-        default = import ./shell.nix {
-          inherit system inputs;
-          nixpkgs = nixpkgsFor.${system};
-        };
-      });
+      devShells = forAllSystems
+        (system:
+          let
+            pkgs = nixpkgsFor.${system};
+          in
+          {
+            default = import ./shell.nix
+              {
+                inherit system inputs;
+                inherit (pkgs) mkShell;
+                dotnet-sdk = pkgs.lib.attrsets.getAttrFromPath dotnet-sdk pkgs;
+              };
+          });
     } // {
       # nixosModules.default = nixCats.nixosModules.default;
     };
