@@ -1,9 +1,8 @@
-{ nixpkgs ? import <nixpkgs> { }
-, system
+{ system
 , inputs
-,
+, dotnet-sdk
+, mkShell
 }:
-with nixpkgs;
 let
   ryanl-nvim = inputs.ryanl-nvim.packages.${system}.default;
   inherit (ryanl-nvim) utils;
@@ -31,13 +30,14 @@ in
 mkShell {
   buildInputs = [
     customNixCats
+    dotnet-sdk
   ];
 
   shellHook = ''
     # append global dotnet tools to PATH
     export PATH="$PATH:$HOME/.dotnet/tools"
     # global tools use this environment variable to locate dotnet runtime
-    export DOTNET_ROOT=${pkgs.dotnetCorePackages.sdk_8_0_1xx}/share/dotnet/
+    export DOTNET_ROOT=${dotnet-sdk}/share/dotnet/
   '';
 }
 
