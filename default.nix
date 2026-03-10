@@ -1,19 +1,16 @@
-{ nixpkgs
-, system
+{ system
 , inputs
-,
+, buildDotnetModule
+, dotnet-sdk
+, dotnet-runtime
+, version
+, port
 }:
-with nixpkgs; let
+let
   # started configuration attributes for dotnet projects
   pname = "rplwork_client";
-  version = "1.1.0";
   projectFile = "rplwork_client.csproj";
   src = ./rplwork_client;
-  port = "5000";
-
-  # controls what sdk the project is built with and what runtime it is run in
-  dotnet-sdk = dotnetCorePackages.dotnet_9.sdk;
-  dotnet-runtime = dotnetCorePackages.dotnet_9.aspnetcore;
 
   # helpful tool that will handle nuget dependencies
   nuget-packageslock2nix = inputs.nuget-packageslock2nix;

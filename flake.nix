@@ -29,7 +29,10 @@
       lastModifiedDate = self.lastModifiedDate or self.lastModified or "19700101";
 
       # Generate a user-friendly version number.
-      version = builtins.substring 0 8 lastModifiedDate;
+      revision = builtins.substring 0 8 lastModifiedDate;
+      version = builtins.concatStringsSep "." [ "1" "1" revision ];
+
+      port = "5000";
 
       # System types to support.
       supportedSystems = [
@@ -39,7 +42,11 @@
         "aarch64-darwin"
       ];
 
-      dotnet-sdk = [ "dotnetCorePackages" "sdk_9_0_1xx" ];
+      # define which sdk/runtime used by the application
+      # each represents an attribute path in nixpkgs
+      dotnet-sdk = [ "dotnetCorePackages" "dotnet_9" "sdk" ];
+      dotnet-runtime = [ "dotnetCorePackages" "dotnet_9" "aspnetcore" ];
+
       # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
@@ -62,19 +69,26 @@
       # The default package for 'nix build'. This makes sense if the
       # flake provides only one package or there is a clear "main"
       # package.
-      packages = forAllSystems (
-        system: {
-          rplwork-client = import ./default.nix {
-            inherit system inputs;
-            nixpkgs = nixpkgsFor.${system};
-          };
-          default = self.packages.${system}.rplwork-client;
-          rplwork-image = import ./pkgs/rplwork-client-image.nix {
-            nixpkgs = nixpkgsFor.${system};
-            rplwork-client = self.packages.${system}.default;
-          };
-        }
-      );
+      packages = forAllSystems
+        (system:
+          let
+            pkgs = nixpkgsFor.${system};
+          in
+          {
+            rplwork-client = import ./default.nix {
+              inherit system inputs version port;
+              inherit (pkgs) buildDotnetModule;
+              # resolve the attribute path to the actual derivation
+              dotnet-sdk = pkgs.lib.attrsets.getAttrFromPath dotnet-sdk pkgs;
+              dotnet-runtime = pkgs.lib.attrsets.getAttrFromPath dotnet-runtime pkgs;
+            };
+            default = self.packages.${system}.rplwork-client;
+            rplwork-image = import ./pkgs/rplwork-client-image.nix {
+              nixpkgs = pkgs;
+              rplwork-client = self.packages.${system}.default;
+            };
+          }
+        );
 
       devShells = forAllSystems
         (system:
